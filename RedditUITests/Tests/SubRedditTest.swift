@@ -30,7 +30,7 @@ class SubRedditTest: BaseUITest {
             .changeSubThreadText(newSubRedditText: SubbReddits.java.rawValue)
             .swipeAwayScreen()
         homeScreen
-            .SubRedditIsDisplaying(subReddit: SubbReddits.java.rawValue)
+            .SubRedditIsDisplaying(subReddit:  SubbReddits.java.rawValue)
     }
 
     func testChangeSubRedditToCode() {
