@@ -11,7 +11,7 @@ jobs:
       - checkout 
       - run:
           name: "run unit tests"
-          command: "bundle exec fastlane $FASTLANE_LANE"
+          command: "xcodebuild test -scheme RedditUnitTests -destination 'platform=iOS Simulator,id=0173AE56-BA34-4C95-9BC0-801F1F8CCAC7'"
       - store_artifacts:
           path: output
       - store_test_results:
@@ -27,7 +27,7 @@ jobs:
       - checkout 
       - run:
           name: "run ui tests"
-          command: "bundle exec fastlane $FASTLANE_LANE"
+          command: "xcodebuild test -scheme RedditUITests -destination 'platform=iOS Simulator,id=0173AE56-BA34-4C95-9BC0-801F1F8CCAC7'"
       - store_artifacts:
           path: output
       - store_test_results:
