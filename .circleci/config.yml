@@ -47,8 +47,8 @@ jobs:
       - save_cache: *save_git_cache
       - restore_cache: *restore_gem_cache 
       - run: bundle install
-      - save_cache: *save_gem_cache
       - run: bundle clean --force
+      - save_cache: *save_gem_cache
       - run:
           name: "run unit tests"
           command: "bundle exec fastlane $FASTLANE_LANE"
@@ -69,8 +69,8 @@ jobs:
       - save_cache: *save_git_cache
       - restore_cache: *restore_gem_cache 
       - run: bundle install
-      - save_cache: *save_gem_cache
       - run: bundle clean --force
+      - save_cache: *save_gem_cache
       - run:
           name: "run ui tests"
           command: "bundle exec fastlane $FASTLANE_LANE"
