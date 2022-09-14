@@ -1,40 +1,38 @@
 version: 2.1
 
-orbs:
-  ruby: circleci/ruby@1.2.0
-
 executors:
   mac-executor:
     macos:
       xcode: "13.4.1"
     working_directory: /Users/distiller/project
 
-- &restore_git_cache
-    name: Restore GIT cache
-    keys:
-      - source-v1-{{ .Branch }}-{{ .Revision }}
-      - source-v1-{{ .Branch }}-
-      - source-v1-
-- &save_git_cache
-    name: Save GIT cache
-    key: source-v1-{{ .Branch }}-{{ .Revision }}
-    paths:
-      - .git
+aliases:
+  - &restore_git_cache
+      name: Restore GIT cache
+      keys:
+        - source-v1-{{ .Branch }}-{{ .Revision }}
+        - source-v1-{{ .Branch }}-
+        - source-v1-
+  - &save_git_cache
+      name: Save GIT cache
+      key: source-v1-{{ .Branch }}-{{ .Revision }}
+      paths:
+        - .git
 
-- &restore_gem_cache
-    name: Restore gem cache
-    keys:
-    - gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-    - gem-cache-v1-{{ arch }}-{{ .Branch }}
-    - gem-cache-v1
-- &save_gem_cache
-    name: Save gem cache
-    key: gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-    paths:
-      - vendor/bundle
-- &bundle_install
-    name: Install Gems via Bundler
-    command: bundle install --path vendor/bundle
+  - &restore_gem_cache
+      name: Restore gem cache
+      keys:
+      - gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+      - gem-cache-v1-{{ arch }}-{{ .Branch }}
+      - gem-cache-v1
+  - &save_gem_cache
+      name: Save gem cache
+      key: gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+      paths:
+        - vendor/bundle
+  - &bundle_install
+      name: Install Gems via Bundler
+      command: bundle install --path vendor/bundle
 
 jobs:
   run-unit-tests:
@@ -44,8 +42,13 @@ jobs:
       FASTLANE_LANE: run_unit_tests
     shell: /bin/bash --login -o pipefail
     steps:
-      - checkout 
-      - ruby/install-deps
+      - restore_cache: *restore_git_cache
+      - checkout
+      - save_cache: *save_git_cache
+      - restore_cache: *restore_gem_cache 
+      - run: bundle install
+      - save_cache: *save_gem_cache
+      - run: bundle clean --force
       - run:
           name: "run unit tests"
           command: "bundle exec fastlane $FASTLANE_LANE"
@@ -61,8 +64,13 @@ jobs:
       FASTLANE_LANE: run_ui_tests
     shell: /bin/bash --login -o pipefail
     steps:
-      - checkout 
-      - ruby/install-deps
+      - restore_cache: *restore_git_cache
+      - checkout
+      - save_cache: *save_git_cache
+      - restore_cache: *restore_gem_cache 
+      - run: bundle install
+      - save_cache: *save_gem_cache
+      - run: bundle clean --force
       - run:
           name: "run ui tests"
           command: "bundle exec fastlane $FASTLANE_LANE"
