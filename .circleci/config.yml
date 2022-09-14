@@ -9,6 +9,33 @@ executors:
       xcode: "13.4.1"
     working_directory: /Users/distiller/project
 
+- &restore_git_cache
+    name: Restore GIT cache
+    keys:
+      - source-v1-{{ .Branch }}-{{ .Revision }}
+      - source-v1-{{ .Branch }}-
+      - source-v1-
+- &save_git_cache
+    name: Save GIT cache
+    key: source-v1-{{ .Branch }}-{{ .Revision }}
+    paths:
+      - .git
+
+- &restore_gem_cache
+    name: Restore gem cache
+    keys:
+    - gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+    - gem-cache-v1-{{ arch }}-{{ .Branch }}
+    - gem-cache-v1
+- &save_gem_cache
+    name: Save gem cache
+    key: gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+    paths:
+      - vendor/bundle
+- &bundle_install
+    name: Install Gems via Bundler
+    command: bundle install --path vendor/bundle
+
 jobs:
   run-unit-tests:
     executor:
