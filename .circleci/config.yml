@@ -41,7 +41,6 @@ jobs:
       - run:
           name: "run ui tests"
           command: |
-            mkdir -p output/ui_tests
             bundle exec fastlane $FASTLANE_LANE
       - store_artifacts:
           path: output
