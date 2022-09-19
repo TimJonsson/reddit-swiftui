@@ -21,9 +21,7 @@ jobs:
       - ruby/install-deps
       - run:
           name: "run unit tests"
-          command: |
-            "mkdir -p 'unit_tests_results'"
-            "bundle exec fastlane $FASTLANE_LANE"
+          command: mkdir -p unit_tests_results
       - store_artifacts:
           path: output
       - store_test_results:
