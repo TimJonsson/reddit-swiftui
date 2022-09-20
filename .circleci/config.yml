@@ -19,7 +19,7 @@ jobs:
     steps:
       - checkout 
       - ruby/install-deps
-      - run: mkdir output/unit_tests_results
+      - run: mkdir -p output/unit_tests_results
       - run: bundle exec fastlane $FASTLANE_LANE
       - store_test_results:
           path: output/unit_tests_results
