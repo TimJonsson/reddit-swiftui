@@ -19,8 +19,11 @@ jobs:
     steps:
       - checkout 
       - ruby/install-deps
-      - run: mkdir -p output/unit_tests_results
-      - run: bundle exec fastlane $FASTLANE_LANE
+      - run: 
+          name: Run unit tests
+          command: |
+            mkdir -p output/unit_tests_results 
+            bundle exec fastlane $FASTLANE_LANE
       - store_test_results:
           path: output/unit_tests_results
       - store_artifacts:
@@ -35,9 +38,8 @@ jobs:
     steps:
       - checkout 
       - ruby/install-deps
-      - run: |
-            mkdir -p output/ui_tests_results
-            bundle exec fastlane $FASTLANE_LANE
+      - run: mkdir -p output/ui_tests_results
+      - run: bundle exec fastlane $FASTLANE_LANE
       - store_test_results:
           path: output/ui_tests_results
       - store_artifacts:
@@ -46,6 +48,6 @@ workflows:
   build-and-run-tests:
     jobs:
       - run-unit-tests
-      - run-ui-tests:
-          requires:
-            - run-unit-tests
+      # - run-ui-tests:
+      #     requires:
+      #       - run-unit-tests
