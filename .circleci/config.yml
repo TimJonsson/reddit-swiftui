@@ -3,10 +3,17 @@ version: 2.1
 orbs:
   ruby: circleci/ruby@1.2.0
 
+executors:
+  mac-executor:
+    macos:
+      xcode: "13.4.1"
+    resource_class: large
+    working_directory: /Users/distiller/project
+
 jobs:
   run-unit-tests:
-    macos:
-      xcode: 13.4.1
+    executor:
+      name: mac-executor
     environment:
       FASTLANE_LANE: run_unit_tests
     shell: /bin/bash --login -o pipefail
@@ -22,8 +29,8 @@ jobs:
           path: output/unit_tests
 
   run-ui-tests:
-    macos:
-      xcode: 13.4.1
+    executor:
+      name: mac-executor
     environment: 
       FASTLANE_LANE: run_ui_tests
     shell: /bin/bash --login -o pipefail
