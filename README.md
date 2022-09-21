@@ -2,9 +2,10 @@
 <h2 align="center">A cross-platform Reddit client created in SwiftUI.</h2>
 <p align="center"><a href="https://testflight.apple.com/join/oiQDuLT7">Get the Public Beta</a></p>
 
-> *Note:* This project is far from complete. It still lacks many features of your typical Reddit client and has bugs (partly due to SwiftUI, but I'll take credit for some of them)
-
-To show off SwiftUI's strength in cross-platform development, I did **not** use Mac Catalyst for this project. Instead, common UI code is shared between iOS, macOS, and watchOS.
+## After fork
+* Added unit tests 
+* Added accessibility identifiers and UI tests 
+* Integrated tests to run with Fastlane on CircleCI 
 
 
 ## Project Structure
