@@ -3,6 +3,6 @@
 <p align="center"><a href="https://testflight.apple.com/join/oiQDuLT7">Get the Public Beta</a></p>
 
 ## After fork
-* Added unit tests with [XCTest](https://developer.apple.com/documentation/xctest)
-* Added accessibility identifiers and UI tests with [XCTest](https://developer.apple.com/documentation/xctest/user_interface_tests)
-* Integrated tests to run with [Fastlane](https://fastlane.tools/) on [CircleCI](https://circleci.com/)
+* Added arithmetic unit tests to run in CI with [XCTest](https://developer.apple.com/documentation/xctest)
+* Added accessibility identifiers and UI tests with [XCUITest](https://github.com/TimJonsson/reddit-swiftui/tree/master/RedditUITests)
+* Integrated tests to run with [Fastlane](https://github.com/TimJonsson/reddit-swiftui/tree/master/fastlane) on [CircleCI](https://github.com/TimJonsson/reddit-swiftui/blob/master/.circleci/config.yml)
